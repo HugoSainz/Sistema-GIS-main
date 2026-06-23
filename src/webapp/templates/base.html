@@ -10,6 +10,104 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- DataTables CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
+    <style>
+        .app-navbar-container {
+            gap: 0.5rem;
+            min-width: 0;
+            flex-wrap: nowrap;
+        }
+
+        .app-navbar-start,
+        .app-navbar-end,
+        .app-navbar-brand,
+        .app-navbar-extra {
+            min-width: 0;
+        }
+
+        .app-navbar-start {
+            flex: 1 1 auto;
+        }
+
+        .app-navbar-brand-text {
+            display: inline-block;
+            max-width: min(46vw, 320px);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .app-navbar-end {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex: 0 1 auto;
+        }
+
+        .navbar-logo-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            min-width: 0;
+        }
+
+        .navbar-logo-group img,
+        #gota,
+        #logo,
+        #ayudas {
+            display: block;
+            width: auto;
+            height: auto;
+            max-width: 100%;
+            max-height: 40px;
+            object-fit: contain;
+            flex-shrink: 1;
+        }
+
+        .app-navbar-extra>* {
+            max-width: 100%;
+        }
+
+        @media (max-width: 991.98px) {
+            .app-navbar-brand-text {
+                max-width: 38vw;
+            }
+
+            .navbar-logo-group img,
+            #gota,
+            #logo,
+            #ayudas {
+                max-height: 34px;
+            }
+        }
+
+        @media (max-width: 575.98px) {
+            .app-navbar-container {
+                gap: 0.35rem;
+            }
+
+            .app-navbar-brand-text {
+                max-width: 30vw;
+                font-size: 0.95rem;
+            }
+
+            .navbar-logo-group {
+                gap: 0.35rem;
+            }
+
+            .navbar-logo-group img,
+            #gota,
+            #logo,
+            #ayudas {
+                max-height: 28px;
+            }
+
+            .app-navbar-extra {
+                max-width: 52vw;
+                overflow: hidden;
+            }
+        }
+    </style>
+    {% block extra_css %}{% endblock %}
 </head>
 
 <body class="bg-light">
@@ -101,21 +199,30 @@
 
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-success shadow-sm">
-        <div class="container-fluid d-flex align-items-center">
-            <!-- Botón del sidebar -->
-            <button class="btn btn-success me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar">
-                <i class="bi bi-list fs-4"></i>
-            </button>
+        <div class="container-fluid d-flex align-items-center app-navbar-container">
+            <div class="d-flex align-items-center app-navbar-start">
+                <!-- Botón del sidebar -->
+                <button class="btn btn-success me-2 flex-shrink-0" type="button" data-bs-toggle="offcanvas"
+                    data-bs-target="#sidebar">
+                    <i class="bi bi-list fs-4"></i>
+                </button>
 
-            <!-- Logo y nombre -->
-            <a class="navbar-brand d-flex align-items-center" href="{{ url_for('dashboard.dashboard') }}">
-                <i class="bi bi-droplet-fill me-2 fs-4"></i>
-                <span class="fw-bold">Comunidad de Regantes</span>
-            </a>
+                <!-- Logo y nombre -->
+                <a class="navbar-brand d-flex align-items-center mb-0 app-navbar-brand"
+                    href="{{ url_for('dashboard.dashboard') }}">
+                    <i class="bi bi-droplet-fill me-2 fs-4 flex-shrink-0"></i>
+                    <span class="fw-bold app-navbar-brand-text">Comunidad de Regantes</span>
+                </a>
+            </div>
 
-            <!-- Espaciador (mantener) -->
-            <div class="ms-auto"></div>
-            {% block navbar_extra %}{% endblock %}
+            <div class="app-navbar-end ms-auto">
+                <div class="navbar-logo-group">
+                    {% block navbar_logos %}{% endblock %}
+                </div>
+                <div class="app-navbar-extra">
+                    {% block navbar_extra %}{% endblock %}
+                </div>
+            </div>
         </div>
     </nav>
     <!-- Contenido principal -->
